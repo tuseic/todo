@@ -1,6 +1,6 @@
 type Text = {
   name: string,
-  description: string
+  doneflag: boolean
 }
 
 export type State = {
@@ -10,6 +10,6 @@ export type State = {
 export const initialState: State = {
   text: {
     name: '',
-    description: '',
+    doneflag: false
   },
 }

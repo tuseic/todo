@@ -5,6 +5,6 @@ export const reducer = reducerWithInitialState(initialState)
   .case(actions.setName, (state, payload) => {
     return { ...state, text: { ...state.text, name: payload } }
   })
-  .case(actions.setDescription, (state, payload) => {
-    return { ...state, text: { ...state.text, description: payload } }
+  .case(actions.setDoneFlag, (state, payload) => {
+    return { ...state, text: { ...state.text, doneflag: payload } }
   })

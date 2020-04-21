@@ -5,15 +5,15 @@ import { Todo } from 'views/components/Todo'
 
 type Type = {
   name: State['todo']['text']['name']
-  description: State['todo']['text']['description']
+  doneflag: State['todo']['text']['doneflag']
 }
 
 const TodoContainer = () => {
   const name = useSelector<State, Type['name']>(
     state => state.todo.text.name
   )
-  const description = useSelector<State, Type['description']>(
-    state => state.todo.text.description
+  const doneflag = useSelector<State, Type['doneflag']>(
+    state => state.todo.text.doneflag
   )
 
   const dispatch = useDispatch()
@@ -22,20 +22,20 @@ const TodoContainer = () => {
       dispatch(actions.todo.setName(name))
     }, [dispatch]
   )
-  const handleSetDescription = useCallback(
-    (description: Type['description']) => {
-      dispatch(actions.todo.setDescription(description))
+  const handleSetDoneFlag = useCallback(
+    (doneflag: Type['doneflag']) => {
+      dispatch(actions.todo.setDoneFlag(doneflag))
     }, [dispatch]
   )
 
   useEffect(() => {
     return () => {
       handleSetName(initialState.todo.text.name)
-      handleSetDescription(initialState.todo.text.description)
+      handleSetDoneFlag(initialState.todo.text.doneflag)
     }
-  }, [handleSetName, handleSetDescription])
+  }, [handleSetName, handleSetDoneFlag])
 
-  const props = { name, description, handleSetName, handleSetDescription }
+  const props = { name, doneflag, handleSetName, handleSetDoneFlag }
 
   return (
     <Todo {...props}/>

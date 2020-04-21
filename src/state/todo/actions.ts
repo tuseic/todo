@@ -3,12 +3,12 @@ import { State } from 'state/todo'
 
 type Type = {
   name: State['text']['name']
-  description: State['text']['description']
+  doneflag: State['text']['doneflag']
 }
 
 const actionCreator = actionCreatorFactory('TODO')
 
 export const actions = {
   setName: actionCreator<Type['name']>('SET_NAME'),
-  setDescription: actionCreator<Type['description']>('SET_DESCRIPTION')
+  setDoneFlag: actionCreator<Type['doneflag']>('SET_DONEFLAG')
 }

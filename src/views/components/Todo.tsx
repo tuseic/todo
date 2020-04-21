@@ -3,20 +3,20 @@ import { State } from 'state'
 
 type Type = {
   name: State['todo']['text']['name']
-  description: State['todo']['text']['description']
+  doneflag: State['todo']['text']['doneflag']
 }
 
 type OwnProps = {
   name: Type['name']
-  description: Type['description']
+  doneflag: Type['doneflag']
 }
 
 type Handler = {
   handleSetName: (
     (name: Type['name']) => void
   )
-  handleSetDescription: (
-    (description: Type['description']) => void
+  handleSetDoneFlag: (
+    (doneflag: Type['doneflag']) => void
   )
 }
 
@@ -28,21 +28,22 @@ export const Todo: React.FC<Props> = (props) => {
     props.handleSetName(e.target.value)
   }
 
-  const setDescriptionFunc = (e: React.ChangeEvent<HTMLInputElement>) => {
-    props.handleSetDescription(e.target.value)
+  const setDoneFlagFunc = () => {
+    props.handleSetDoneFlag(!props.doneflag)
   }
 
   return (
     <React.Fragment>
       <input
+        type='text'
         onChange={setNameFunc}
         value={props.name}
         placeholder='name'
       />
       <input
-        onChange={setDescriptionFunc}
-        value={props.description}
-        placeholder='description'
+        type='checkbox'
+        checked={props.doneflag}
+        onClick={setDoneFlagFunc}
       />
     </React.Fragment>
   )
