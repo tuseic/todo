@@ -1,15 +1,15 @@
-type Text = {
-  name: string,
-  description: string
+type Todo = {
+  text: string,
+  doneflag: boolean
 }
 
 export type State = {
-  text: Text
+  todos: Todo[]
 }
 
 export const initialState: State = {
-  text: {
-    name: '',
-    description: '',
-  },
+  todos: [
+    {text: "example1", doneflag: false},
+    {text: "example2", doneflag: true},
+  ]
 }

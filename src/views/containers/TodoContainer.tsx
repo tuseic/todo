@@ -1,41 +1,29 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { State, initialState, actions } from 'state'
+import { State, actions } from 'state'
 import { Todo } from 'views/components/Todo'
 
 type Type = {
-  name: State['todo']['text']['name']
-  description: State['todo']['text']['description']
+  todos: State['todo']['todos']
+  todo: State['todo']['todos'][0]
 }
 
 const TodoContainer = () => {
-  const name = useSelector<State, Type['name']>(
-    state => state.todo.text.name
-  )
-  const description = useSelector<State, Type['description']>(
-    state => state.todo.text.description
+  const todos = useSelector<State, Type['todos']>(
+    state => state.todo.todos
   )
 
   const dispatch = useDispatch()
-  const handleSetName = useCallback(
-    (name: Type['name']) => {
-      dispatch(actions.todo.setName(name))
-    }, [dispatch]
-  )
-  const handleSetDescription = useCallback(
-    (description: Type['description']) => {
-      dispatch(actions.todo.setDescription(description))
+  const handleSetTodo = useCallback(
+    (todo: Type['todo'], index: number) => {
+      dispatch(actions.todo.setTodo({
+        todo: todo,
+        index: index
+      }))
     }, [dispatch]
   )
 
-  useEffect(() => {
-    return () => {
-      handleSetName(initialState.todo.text.name)
-      handleSetDescription(initialState.todo.text.description)
-    }
-  }, [handleSetName, handleSetDescription])
-
-  const props = { name, description, handleSetName, handleSetDescription }
+  const props = { todos, handleSetTodo }
 
   return (
     <Todo {...props}/>
