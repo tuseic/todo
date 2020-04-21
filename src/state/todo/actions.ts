@@ -2,13 +2,14 @@ import { actionCreatorFactory } from 'typescript-fsa'
 import { State } from 'state/todo'
 
 type Type = {
-  todo: State['todos']['todo']
-  doneflag: State['todos']['doneflag']
+  setTodo: {
+    todo: State['todos'][0]
+    index: number
+  }
 }
 
 const actionCreator = actionCreatorFactory('TODO')
 
 export const actions = {
-  setTodo: actionCreator<Type['todo']>('SET_TODO'),
-  setDoneFlag: actionCreator<Type['doneflag']>('SET_DONEFLAG')
+  setTodo: actionCreator<Type['setTodo']>('SET_TODO'),
 }

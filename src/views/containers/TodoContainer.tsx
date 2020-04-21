@@ -1,41 +1,29 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { State, initialState, actions } from 'state'
+import { State, actions } from 'state'
 import { Todo } from 'views/components/Todo'
 
 type Type = {
-  todo: State['todo']['todos']['todo']
-  doneflag: State['todo']['todos']['doneflag']
+  todos: State['todo']['todos']
+  todo: State['todo']['todos'][0]
 }
 
 const TodoContainer = () => {
-  const todo = useSelector<State, Type['todo']>(
-    state => state.todo.todos.todo
-  )
-  const doneflag = useSelector<State, Type['doneflag']>(
-    state => state.todo.todos.doneflag
+  const todos = useSelector<State, Type['todos']>(
+    state => state.todo.todos
   )
 
   const dispatch = useDispatch()
   const handleSetTodo = useCallback(
-    (todo: Type['todo']) => {
-      dispatch(actions.todo.setTodo(todo))
-    }, [dispatch]
-  )
-  const handleSetDoneFlag = useCallback(
-    (doneflag: Type['doneflag']) => {
-      dispatch(actions.todo.setDoneFlag(doneflag))
+    (todo: Type['todo'], index: number) => {
+      dispatch(actions.todo.setTodo({
+        todo: todo,
+        index: index
+      }))
     }, [dispatch]
   )
 
-  useEffect(() => {
-    return () => {
-      handleSetTodo(initialState.todo.todos.todo)
-      handleSetDoneFlag(initialState.todo.todos.doneflag)
-    }
-  }, [handleSetTodo, handleSetDoneFlag])
-
-  const props = { todo, doneflag, handleSetTodo, handleSetDoneFlag }
+  const props = { todos, handleSetTodo }
 
   return (
     <Todo {...props}/>

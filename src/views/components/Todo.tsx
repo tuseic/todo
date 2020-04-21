@@ -2,21 +2,17 @@ import React from 'react'
 import { State } from 'state'
 
 type Type = {
-  todo: State['todo']['todos']['todo']
-  doneflag: State['todo']['todos']['doneflag']
+  todos: State['todo']['todos']
+  todo: State['todo']['todos'][0]
 }
 
 type OwnProps = {
-  todo: Type['todo']
-  doneflag: Type['doneflag']
+  todos: Type['todos']
 }
 
 type Handler = {
   handleSetTodo: (
-    (todo: Type['todo']) => void
-  )
-  handleSetDoneFlag: (
-    (doneflag: Type['doneflag']) => void
+    (todo: Type['todo'], index: number) => void
   )
 }
 
@@ -24,27 +20,34 @@ type Props = OwnProps & Handler
 
 export const Todo: React.FC<Props> = (props) => {
 
-  const setTodoFunc = (e: React.ChangeEvent<HTMLInputElement>) => {
-    props.handleSetTodo(e.target.value)
+  const setTodoTextFunc = (todo: Type['todo'], index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    props.handleSetTodo({ ...todo, text: e.target.value }, index)
   }
 
-  const setDoneFlagFunc = () => {
-    props.handleSetDoneFlag(!props.doneflag)
+  const setTodoDoneFlagFunc = (todo: Type['todo'], index: number) => () => {
+    props.handleSetTodo({ ...todo, doneflag: !todo.doneflag }, index)
   }
 
   return (
     <React.Fragment>
-      <input
-        type='text'
-        onChange={setTodoFunc}
-        value={props.todo}
-        placeholder='todo'
-      />
-      <input
-        type='checkbox'
-        checked={props.doneflag}
-        onClick={setDoneFlagFunc}
-      />
+      {
+        props.todos.map((todo, index) => {
+          return (
+            <div key={index}>
+              <input
+                type='text'
+                onChange={setTodoTextFunc(todo, index)}
+                value={todo.text}
+              />
+              <input
+                type='checkbox'
+                onClick={setTodoDoneFlagFunc(todo, index)}
+                checked={todo.doneflag}
+              />
+            </div>
+          )
+        })
+      }
     </React.Fragment>
   )
 }
