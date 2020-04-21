@@ -7,11 +7,13 @@ type Type = {
     todo: State['todos'][0]
     index: number
   }
+  deleteTodoIndex: number
 }
 
 const actionCreator = actionCreatorFactory('TODO')
 
 export const actions = {
+  newTodo: actionCreator<Type['todo']>('NEW_TODO'),
   setTodo: actionCreator<Type['setTodo']>('SET_TODO'),
-  newTodo: actionCreator<Type['todo']>('NEW_TODO')
+  deleteTodo: actionCreator<Type['deleteTodoIndex']>('DELETE_TODO'),
 }

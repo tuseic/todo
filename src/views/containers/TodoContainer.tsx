@@ -30,8 +30,13 @@ const TodoContainer = () => {
       }))
     }, [dispatch]
   )
+  const handleDeleteTodo = useCallback(
+    (index: number) => {
+      dispatch(actions.todo.deleteTodo(index))
+    }, [dispatch]
+  )
 
-  const props = { todos, handleSetTodo, handleNewTodo }
+  const props = { todos, handleSetTodo, handleNewTodo, handleDeleteTodo }
 
   return (
     <Todo {...props}/>

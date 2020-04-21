@@ -17,6 +17,9 @@ type Handler = {
   handleNewTodo: (
     () => void
   )
+  handleDeleteTodo: (
+    (index: number) => void
+  )
 }
 
 type Props = OwnProps & Handler
@@ -35,12 +38,17 @@ export const Todo: React.FC<Props> = (props) => {
     props.handleNewTodo()
   }
 
+  const deleteTodoFunc = (index: number) => () => {
+    props.handleDeleteTodo(index)
+  }
+
   return (
     <React.Fragment>
       {
         props.todos.map((todo, index) => {
           return (
             <div key={index}>
+              <button onClick={deleteTodoFunc(index)}> X </button>
               <input
                 type='text'
                 onChange={setTodoTextFunc(todo, index)}
