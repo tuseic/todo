@@ -2,18 +2,18 @@ import React from 'react'
 import { State } from 'state'
 
 type Type = {
-  name: State['todo']['text']['name']
-  doneflag: State['todo']['text']['doneflag']
+  todo: State['todo']['todos']['todo']
+  doneflag: State['todo']['todos']['doneflag']
 }
 
 type OwnProps = {
-  name: Type['name']
+  todo: Type['todo']
   doneflag: Type['doneflag']
 }
 
 type Handler = {
-  handleSetName: (
-    (name: Type['name']) => void
+  handleSetTodo: (
+    (todo: Type['todo']) => void
   )
   handleSetDoneFlag: (
     (doneflag: Type['doneflag']) => void
@@ -24,8 +24,8 @@ type Props = OwnProps & Handler
 
 export const Todo: React.FC<Props> = (props) => {
 
-  const setNameFunc = (e: React.ChangeEvent<HTMLInputElement>) => {
-    props.handleSetName(e.target.value)
+  const setTodoFunc = (e: React.ChangeEvent<HTMLInputElement>) => {
+    props.handleSetTodo(e.target.value)
   }
 
   const setDoneFlagFunc = () => {
@@ -36,9 +36,9 @@ export const Todo: React.FC<Props> = (props) => {
     <React.Fragment>
       <input
         type='text'
-        onChange={setNameFunc}
-        value={props.name}
-        placeholder='name'
+        onChange={setTodoFunc}
+        value={props.todo}
+        placeholder='todo'
       />
       <input
         type='checkbox'

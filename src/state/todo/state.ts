@@ -1,15 +1,15 @@
-type Text = {
-  name: string,
+type Todo = {
+  todo: string,
   doneflag: boolean
 }
 
 export type State = {
-  text: Text
+  todos: Todo
 }
 
 export const initialState: State = {
-  text: {
-    name: '',
+  todos: {
+    todo: '',
     doneflag: false
   },
 }
