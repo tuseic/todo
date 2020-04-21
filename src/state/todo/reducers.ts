@@ -12,3 +12,6 @@ export const reducer = reducerWithInitialState(initialState)
       ]
     }
   })
+  .case(actions.newTodo, (state, payload) => {
+    return { ...state, todos: [  ...state.todos, payload  ] }
+  })

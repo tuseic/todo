@@ -22,8 +22,16 @@ const TodoContainer = () => {
       }))
     }, [dispatch]
   )
+  const handleNewTodo = useCallback(
+    () => {
+      dispatch(actions.todo.newTodo({
+        text: '',
+        doneflag: false,
+      }))
+    }, [dispatch]
+  )
 
-  const props = { todos, handleSetTodo }
+  const props = { todos, handleSetTodo, handleNewTodo }
 
   return (
     <Todo {...props}/>

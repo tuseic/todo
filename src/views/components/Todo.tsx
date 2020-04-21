@@ -14,6 +14,9 @@ type Handler = {
   handleSetTodo: (
     (todo: Type['todo'], index: number) => void
   )
+  handleNewTodo: (
+    () => void
+  )
 }
 
 type Props = OwnProps & Handler
@@ -26,6 +29,10 @@ export const Todo: React.FC<Props> = (props) => {
 
   const setTodoDoneFlagFunc = (todo: Type['todo'], index: number) => () => {
     props.handleSetTodo({ ...todo, doneflag: !todo.doneflag }, index)
+  }
+
+  const newTodoFunc = () => {
+    props.handleNewTodo()
   }
 
   return (
@@ -43,11 +50,13 @@ export const Todo: React.FC<Props> = (props) => {
                 type='checkbox'
                 onClick={setTodoDoneFlagFunc(todo, index)}
                 checked={todo.doneflag}
+                readOnly
               />
             </div>
           )
         })
       }
+      <button onClick={newTodoFunc}>newTodo</button>
     </React.Fragment>
   )
 }

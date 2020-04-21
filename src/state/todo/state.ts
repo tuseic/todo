@@ -8,8 +8,5 @@ export type State = {
 }
 
 export const initialState: State = {
-  todos: [
-    {text: "example1", doneflag: false},
-    {text: "example2", doneflag: true},
-  ]
+  todos: []
 }
