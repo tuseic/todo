@@ -13,7 +13,7 @@ type Type = {
 const actionCreator = actionCreatorFactory('TODO')
 
 export const actions = {
-  newTodo: actionCreator<Type['todo']>('NEW_TODO'),
+  newTodo: actionCreator('NEW_TODO'),
   setTodo: actionCreator<Type['setTodo']>('SET_TODO'),
   deleteTodo: actionCreator<Type['deleteTodoIndex']>('DELETE_TODO'),
 }

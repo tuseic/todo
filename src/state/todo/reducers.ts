@@ -12,15 +12,24 @@ export const reducer = reducerWithInitialState(initialState)
       ]
     }
   })
-  .case(actions.newTodo, (state, payload) => {
-    return { ...state, todos: [  ...state.todos, payload  ] }
-  })
   .case(actions.deleteTodo, (state, payload) => {
     return {
       ...state,
       todos: [
         ...state.todos.slice(0, payload),
         ...state.todos.slice(payload+1)
+      ]
+    }
+  })
+  .case(actions.newTodo, (state) => {
+    return {
+      ...state,
+      todos: [
+        ...state.todos,
+        {
+          text: '',
+          doneflag: false
+        }
       ]
     }
   })

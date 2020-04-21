@@ -24,10 +24,7 @@ const TodoContainer = () => {
   )
   const handleNewTodo = useCallback(
     () => {
-      dispatch(actions.todo.newTodo({
-        text: '',
-        doneflag: false,
-      }))
+      dispatch(actions.todo.newTodo())
     }, [dispatch]
   )
   const handleDeleteTodo = useCallback(
