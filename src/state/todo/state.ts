@@ -5,11 +5,10 @@ type Todo = {
 
 export type State = {
   todos: Todo[]
+  deleteIndex: number | null
 }
 
 export const initialState: State = {
-  todos: [
-    {text: "example1", doneflag: false},
-    {text: "example2", doneflag: true},
-  ]
+  todos: [],
+  deleteIndex: null
 }
