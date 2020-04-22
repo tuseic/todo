@@ -39,3 +39,9 @@ export const reducer = reducerWithInitialState(initialState)
       deleteIndex: payload
     }
   })
+  .case(actions.getTodos.done, (state, payload) => {
+    return {
+      ...state,
+      todos: payload.result
+    }
+  })

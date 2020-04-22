@@ -1,0 +1,12 @@
+{
+    "todos": [
+        {
+            "text": "example1",
+            "doneflag": false
+        },
+        {
+            "text": "example2",
+            "doneflag": true
+        }
+    ]
+}

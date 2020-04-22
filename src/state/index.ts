@@ -15,3 +15,7 @@ export const actions = {
 export const reducers = {
   todo: Todo.reducer
 }
+
+export const operations = {
+  todo: Todo.operations
+}
