@@ -6,11 +6,15 @@ import { Todo } from 'views/components/Todo'
 type Type = {
   todos: State['todo']['todos']
   todo: State['todo']['todos'][0]
+  deleteIndex: State['todo']['deleteIndex']
 }
 
 const TodoContainer = () => {
   const todos = useSelector<State, Type['todos']>(
     state => state.todo.todos
+  )
+  const deleteIndex = useSelector<State, Type['deleteIndex']>(
+    state => state.todo.deleteIndex
   )
 
   const dispatch = useDispatch()
@@ -32,8 +36,13 @@ const TodoContainer = () => {
       dispatch(actions.todo.deleteTodo(index))
     }, [dispatch]
   )
+  const handleSetDeleteIndex = useCallback(
+    (deleteIndex: Type['deleteIndex']) => {
+      dispatch(actions.todo.setDeleteIndex(deleteIndex))
+    }, [dispatch]
+  )
 
-  const props = { todos, handleSetTodo, handleNewTodo, handleDeleteTodo }
+  const props = { todos, handleSetTodo, handleNewTodo, handleDeleteTodo, deleteIndex, handleSetDeleteIndex }
 
   return (
     <Todo {...props}/>

@@ -4,10 +4,12 @@ import { State } from 'state'
 type Type = {
   todos: State['todo']['todos']
   todo: State['todo']['todos'][0]
+  deleteIndex: State['todo']['deleteIndex']
 }
 
 type OwnProps = {
   todos: Type['todos']
+  deleteIndex: Type['deleteIndex']
 }
 
 type Handler = {
@@ -20,6 +22,9 @@ type Handler = {
   handleDeleteTodo: (
     (index: number) => void
   )
+  handleSetDeleteIndex: (
+    (deleteIndex: Type['deleteIndex']) => void
+  )
 }
 
 type Props = OwnProps & Handler
@@ -28,18 +33,30 @@ export const Todo: React.FC<Props> = (props) => {
 
   const setTodoTextFunc = (todo: Type['todo'], index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
     props.handleSetTodo({ ...todo, text: e.target.value }, index)
+    props.handleSetDeleteIndex(null)
   }
 
   const setTodoDoneFlagFunc = (todo: Type['todo'], index: number) => () => {
     props.handleSetTodo({ ...todo, doneflag: !todo.doneflag }, index)
+    props.handleSetDeleteIndex(null)
   }
 
   const newTodoFunc = () => {
     props.handleNewTodo()
+    props.handleSetDeleteIndex(null)
   }
 
   const deleteTodoFunc = (index: number) => () => {
-    props.handleDeleteTodo(index)
+    if (props.deleteIndex === null) {
+      props.handleSetDeleteIndex(index)
+    } else {
+      if (props.deleteIndex === index) {
+        props.handleDeleteTodo(props.deleteIndex)
+        props.handleSetDeleteIndex(null)
+      } else {
+        props.handleSetDeleteIndex(index)
+      }
+    }
   }
 
   return (
@@ -48,7 +65,12 @@ export const Todo: React.FC<Props> = (props) => {
         props.todos.map((todo, index) => {
           return (
             <div key={index}>
-              <button onClick={deleteTodoFunc(index)}> X </button>
+              <button onClick={deleteTodoFunc(index)}>
+                { props.deleteIndex === index
+                  ? <span style={{color: "red"}}> X </span>
+                  : <span> X </span>
+                }
+              </button>
               <input
                 type='text'
                 onChange={setTodoTextFunc(todo, index)}

@@ -33,3 +33,9 @@ export const reducer = reducerWithInitialState(initialState)
       ]
     }
   })
+  .case(actions.setDeleteIndex, (state, payload) => {
+    return {
+      ...state,
+      deleteIndex: payload
+    }
+  })
