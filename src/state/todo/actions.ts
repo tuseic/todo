@@ -9,6 +9,7 @@ type Type = {
     index: number
   }
   deleteIndex: State['deleteIndex']
+  todos: State['todos']
 }
 
 const actionCreator = actionCreatorFactory('TODO')
@@ -18,4 +19,5 @@ export const actions = {
   setTodo: actionCreator<Type['setTodo']>('SET_TODO'),
   deleteTodo: actionCreator<Type['index']>('DELETE_TODO'),
   setDeleteIndex: actionCreator<Type['deleteIndex']>('SET_DELETE_INDEX'),
+  getTodos: actionCreator.async<{}, Type['todos']>('GET_TODOS'),
 }
