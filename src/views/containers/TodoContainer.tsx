@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { State, actions } from 'state'
+import { State, actions, operations } from 'state'
 import { Todo } from 'views/components/Todo'
 
 type Type = {
@@ -41,6 +41,13 @@ const TodoContainer = () => {
       dispatch(actions.todo.setDeleteIndex(deleteIndex))
     }, [dispatch]
   )
+  const handleGetTodos = useCallback(
+    () => dispatch(operations.todo.getTodos()), [dispatch]
+  )
+
+  useEffect(() => {
+    handleGetTodos()
+  }, [handleGetTodos])
 
   const props = { todos, handleSetTodo, handleNewTodo, handleDeleteTodo, deleteIndex, handleSetDeleteIndex }
 
